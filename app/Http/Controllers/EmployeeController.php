@@ -32,7 +32,7 @@ class EmployeeController extends Controller
         ]);
 
         $employee = new Employee();
-       // $user_id =>auth()->user()->id;
+        $employee->user_id = auth()->user()->id;
         $employee->first_name = $input['first_name'];
         $employee->last_name = $input['last_name'];
         $employee->save();
@@ -44,9 +44,13 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $userId)
     {
-        return response()->json($employee);
+        $getValue = Employee::where('user_id',$userId)->get();
+
+        return response([
+            'data' => $getValue
+        ]);
     }
 
     /**

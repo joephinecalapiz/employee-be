@@ -6,7 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\UserController;
 
 
-Route::post('auth/register', [UserController::class, 'register']);
+Route::post('auth/register', [UserController::class, 'Register']);
 Route::post('auth/login', [UserController::class, 'login']);
 
 
@@ -18,7 +18,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('auth/logout', [UserController::class, 'logout']);
 
-    Route::get('/employees/{userId}', [EmployeeController::class, 'index']);
+    //Route::get('/employees/{userId}', [EmployeeController::class, 'index']);
+    Route::get('/employees/{userId}', [EmployeeController::class, 'show']);
+
     Route::put('/employees{id}', [EmployeeController::class, 'update']);
     Route::delete('/employees{id}', [EmployeeController::class, 'destroy']);
     
