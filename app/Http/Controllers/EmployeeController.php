@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Employee;
+use App\Models\User;
+
 
 use Illuminate\Http\Request;
 
@@ -12,6 +14,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         return Employee::get();
         // $employees = Employee::all();
         // return response()->json($employees);
@@ -22,15 +25,20 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+
         $input = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
         ]);
+
         $employee = new Employee();
+       // $user_id =>auth()->user()->id;
         $employee->first_name = $input['first_name'];
         $employee->last_name = $input['last_name'];
         $employee->save();
         return response()->json($employee);
+
+        
     }
 
     /**
